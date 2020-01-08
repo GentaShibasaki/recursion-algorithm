@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const { RobotPaths } = require("../src/robotPaths");
 
-describe.only("robotPaths", () => {
+describe("robotPaths", () => {
   it("should exist", () => {
     expect(RobotPaths).not.to.be.undefined;
   });

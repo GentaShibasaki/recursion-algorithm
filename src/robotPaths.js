@@ -28,11 +28,39 @@ class RobotPaths {
   }
 
   solve() {
+    const boardLength = this.board.board.length;
     let result = 0;
-    if (this.board.length === 0) return result;
-    const possiblePaths = [];
-    //do stuff
-    result = possiblePaths.length;
+
+    function recursive(rowPlace, colPlace, destinationPlace, board) {
+      board.board = board.togglePiece(rowPlace, colPlace);
+
+      if (rowPlace === destinationPlace && colPlace === destinationPlace) {
+        result += 1;
+        board.board = board.togglePiece(rowPlace, colPlace);
+        return;
+      }
+
+      if (
+        colPlace + 1 <= destinationPlace &&
+        !board.hasBeenVisited(rowPlace, colPlace + 1)
+      )
+        recursive(rowPlace, colPlace + 1, destinationPlace, board);
+      if (
+        rowPlace + 1 <= destinationPlace &&
+        !board.hasBeenVisited(rowPlace + 1, colPlace)
+      )
+        recursive(rowPlace + 1, colPlace, destinationPlace, board);
+
+      if (colPlace - 1 >= 0 && !board.hasBeenVisited(rowPlace, colPlace - 1))
+        recursive(rowPlace, colPlace - 1, destinationPlace, board);
+
+      if (rowPlace - 1 >= 0 && !board.hasBeenVisited(rowPlace - 1, colPlace))
+        recursive(rowPlace - 1, colPlace, destinationPlace, board);
+
+      board.board = board.togglePiece(rowPlace, colPlace);
+    }
+
+    recursive(0, 0, boardLength - 1, this.board);
     return result;
   }
 }
