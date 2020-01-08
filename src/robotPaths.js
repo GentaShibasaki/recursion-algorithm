@@ -28,7 +28,12 @@ class RobotPaths {
   }
 
   solve() {
-    // Your code here.
+    let result = 0;
+    if (this.board.length === 0) return result;
+    const possiblePaths = [];
+    //do stuff
+    result = possiblePaths.length;
+    return result;
   }
 }
 
